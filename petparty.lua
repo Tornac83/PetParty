@@ -25,13 +25,15 @@
 
 _addon.author   = 'Tornac';
 _addon.name     = 'petparty';
-_addon.version  = '1.0.0';
+_addon.version  = '1.0.2';
 
 require 'common'
 
 WindowX    = 250 -- base size
 WindowY    = 70 -- base size
 Size       = 0
+MJob       = 0
+SJob       = 0
 
 function FindJob(MainJob)
 	if (MainJob == 1) then
@@ -78,6 +80,8 @@ function FindJob(MainJob)
 	   return 'GEO'
 	elseif MainJob == 22 then
 	   return 'RUN'
+	else
+	   return "UNKNOWN"
 	end
  end;
  
@@ -125,7 +129,8 @@ ashita.register_event('render', function()
 	    local SJobNumber = AshitaCore:GetDataManager():GetParty():GetMemberSubJob(i)
         local player = GetEntity(entityId)
 			if (player ~= nil) then
-				
+			
+			
 			MJob = FindJob(JobNumber)
 			SJob = FindJob(SJobNumber)
 				
@@ -145,9 +150,6 @@ ashita.register_event('render', function()
 						imgui.End();
 						return;
 					end
-					
-
-					
 					
 					-- Adding the pet name along with the player name.
 					imgui.Text(MJob);
@@ -171,7 +173,7 @@ ashita.register_event('render', function()
 					imgui.ProgressBar(pet.HealthPercent / 100, -1, 14);
 					imgui.PopStyleColor(2);
 					imgui.Separator();
-					imgui.End();        
+					imgui.End();  					
 				end
 			end
 	
